@@ -99,13 +99,11 @@ int main ()
   printf("read1 %d\n", ret);
   ret = usb_interrupt_read(devh, 0x00000081, buf, 0x0000010, 1000);
   printf("read2 %d\n", ret);
-  ret = usb_release_interface(devh, 0);
-  //usb_reset(devh);
-  usb_close(devh);
-/*
+
   int c0 = 104;
   int c1 = 37;
   unsigned short iresult;
+  //printf("blues");
   while(0==0){
     usleep(2500*1000);
     memcpy(buf, "\x40\x68\x2a\x54\x52\x0a\x40\x40\x40\x40\x40\x40\x40\x40\x40\x40", 0x0000010);
@@ -113,14 +111,18 @@ int main ()
     c0++;
     if (c0 == 256) c0 = 103;
     ret = usb_interrupt_write(devh, 0x00000002, buf, 0x0000010, 1000);
+//    printf("write1 %d\n", ret);
     usleep(94*1000);
     ret = usb_interrupt_read(devh, 0x00000081, buf, 0x0000010, 1000);
     // Seems to yield a realistic value...
     memcpy(&iresult,buf+2,2);
     iresult /= 2;
-		
+    printf("wert: %d\n", iresult);
+    usleep(94*1000);
+
     usleep(14*1000);
     ret = usb_interrupt_read(devh, 0x00000081, buf, 0x0000010, 1000);
+//    printf("read4 %d\n", ret);
     
     usleep(3*1000);
     memcpy(buf, "\x40\x30\x30\x30\x37\x46\x4c\x41\x47\x47\x45\x54\x3f\x0a\x40\x40", 0x0000010);
@@ -129,14 +131,18 @@ int main ()
     if (c1 == 40) c1++;
     else if (c1 == 47) c1=30;
     ret = usb_interrupt_write(devh, 0x00000002, buf, 0x0000010, 1000);
+    //printf("write2 %d\n", ret);
     
     usleep(23*1000);
     ret = usb_interrupt_read(devh, 0x00000081, buf, 0x0000010, 1000);
+  //  printf("read5 %d\n", ret);
     usleep(14*1000);
     ret = usb_interrupt_read(devh, 0x00000081, buf, 0x0000010, 1000);
+//    printf("read6 %d\n", ret);
     usleep(8*1000);
     ret = usb_interrupt_read(devh, 0x00000081, buf, 0x0000010, 1000);
-  }*/
+    //printf("read7 %d\n", ret);
+  }
 
 	return 0; 
 }
